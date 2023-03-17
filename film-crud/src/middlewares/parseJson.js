@@ -6,7 +6,11 @@ module.exports = (req, res)=>{
                 data += chunk
             })
             req.on("end", ()=>{
-                resolve(JSON.parse(data))
+                try{
+                    resolve(JSON.parse(data))
+                }catch(err){
+                    reject(err)
+                }
             })
             req.on("error", err=>{
                 reject(err)
